@@ -1,5 +1,4 @@
 globals()["count"]=0
-globals()["a"]=[0]*30
 
 def place(pos):
     for i in range(pos):
@@ -23,7 +22,7 @@ def queen(n):
     globals()["a"][k]=0
     while k!=0:
         globals()["a"][k]+=1
-        while globals()["a"][k]<=n and place(k)==False:
+        while globals()["a"][k]<=n and place(k)==0:
             globals()["a"][k]+=1
         if globals()["a"][k]<=n:
             if k==n:
@@ -35,5 +34,6 @@ def queen(n):
             k-=1
 
 n=int(input("Enter the number of Queens "))
+globals()["a"]=[0]*(n+1)
 queen(n)
 print("Total solutions = ",globals()["count"])
