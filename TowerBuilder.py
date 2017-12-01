@@ -3,14 +3,16 @@ from copy import *
 cubes = {}
 nrofcubes = int(input("How many cubes are you using? "))
 
+#Asks user to input information about the cubes.
 for cub in range(1,nrofcubes+1):
     nr = int(input("What's cube"+str(cub)+"'s edge? "))
     color = str(input("and color? "))
     cubes["cube"+str(cub)]=[nr, color]
 
-workingcubes = copy(cubes)
-cubelist = list(cubes.keys())
+workingcubes = copy(cubes)#Cubes on which to run the functions so the cubes dictionary stays as reference.
+cubelist = list(cubes)#Index for the dictionary.
 
+#Finds out which cube should be at the base of the tower based on the lenght of it's edge.
 def baza(cubes, cubelist, iter1=1, maxcube=0, cubenr=0):
     if iter1 <= len(cubes):
         cube = cubes[cubelist[iter1-1]]
@@ -20,6 +22,7 @@ def baza(cubes, cubelist, iter1=1, maxcube=0, cubenr=0):
         cubenr = baza(cubes, cubelist, iter1+1, maxcube, cubenr)
     return cubenr
 
+#Finds out the order the cubes should be placed in based on the lenght of their edge.
 def ordinea(workingcubes, cubelist, order = []):
     if len(workingcubes)>1:    
         selected=baza(workingcubes, cubelist)
@@ -31,6 +34,7 @@ def ordinea(workingcubes, cubelist, order = []):
         order.append(cubelist[0])
     return order
 
+#Swaps two elements in a list.
 def swap(lista, a, b):
     x=lista[a]
     y=lista[b]
@@ -39,6 +43,7 @@ def swap(lista, a, b):
     lista[b]=z
     return lista
 
+#Swaps position of cubes in such a way that no 2 cubes of the same color are on top of eachother.
 def arange(arcubes, arorder):
     last = ""
     chn = False
@@ -51,6 +56,7 @@ def arange(arcubes, arorder):
         last = arcubes[str(arorder[i])][1]
     return arorder
 
+#Calculates the maximum height of the tower.
 def maxheight(mhcubes):
     tot = 0
     for i in range(len(cubes)):
@@ -59,6 +65,7 @@ def maxheight(mhcubes):
 
 order = arange(cubes,ordinea(workingcubes, cubelist))
 
+#Prints solution
 print("The maximum height is", str(maxheight(cubes)))
 for i in range(len(cubes)):
     i=i+1

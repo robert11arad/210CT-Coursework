@@ -37,12 +37,14 @@ class List(object):
           print (", ".join(values))
          
 if __name__ == '__main__':
+      #Reading the file and saving the content.
       file = open('inputfile.txt', 'r')
       text = file.read().lower()
       file.close()
       text = re.sub('[^a-z\ \']+', " ", text)
       words = list(text.split())
 
+      #Removing words that appear more than once
       for i in words:
             times=0
             for j in words:
@@ -50,14 +52,18 @@ if __name__ == '__main__':
                         times+=1
                   elif i==j and times>=1:
                         words.remove(i)
+
+      #Creating a dictionary where the key is the lenght of the words and the value is the word with said lenght.
       Dict={}
       for i in words:
             if (len(i) in Dict) == False:
                   Dict[len(i)]=[i]
             elif (len(i) in Dict) == True:
                 Dict[len(i)].append(i)
-      dictkeys=list(Dict)
+      dictkeys=list(Dict)#Dictionary index, to be able to move easier through it.
 
+
+      #Adding the elements to the Doubly Linked List and displaying them.
       for i in sorted(dictkeys):
             Dict[i]=sorted(Dict[i])
             globals()["lst"+str(i)]=List()
